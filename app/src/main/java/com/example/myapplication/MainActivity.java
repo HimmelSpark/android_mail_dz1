@@ -19,6 +19,8 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String RECYCLER_DATA_KEY = "myDataSet";
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter<MyAdapter.MyViewHolder> adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             this.myDataSet = initializeRecycler(null);
         } else {
             this.myDataSet = Optional.of(savedInstanceState)
-                    .map(s -> s.getIntegerArrayList("myDataSet"))
+                    .map(s -> s.getIntegerArrayList(RECYCLER_DATA_KEY))
                     .map(this::initializeRecycler)
                     .orElseGet(() -> initializeRecycler(null));
         }
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putIntegerArrayList("myDataSet", (ArrayList<Integer>) myDataSet);
+        outState.putIntegerArrayList(RECYCLER_DATA_KEY, (ArrayList<Integer>) myDataSet);
     }
 
     private Integer addToRecycler(RecyclerView.Adapter<MyAdapter.MyViewHolder> adapter, Integer number) {

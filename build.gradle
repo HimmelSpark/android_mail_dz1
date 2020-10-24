@@ -23,3 +23,9 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+configure(subprojects) { subProject ->
+    ext {
+        daggerVersion = '2.17'
+    }
+}
